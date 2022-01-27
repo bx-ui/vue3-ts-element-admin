@@ -13,6 +13,12 @@ module.exports = {
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'indent': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    "space-before-function-paren": 0,
+    "@typescript-eslint/no-explicit-any": ["off"],
+    "space-before-blocks": 0,
+    "key-spacing": 0
   }
 }
