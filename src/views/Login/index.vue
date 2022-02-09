@@ -7,7 +7,11 @@
       ref="form"
     >
       <div class="title-container">
-        <h3 class="title">用户登录</h3>
+        <h3 class="title">{{ $t('msg.login.title') }}</h3>
+        <lang-select
+          class="lang-select"
+          effect="light"
+        />
       </div>
       <el-form-item prop="username">
         <svg-icon
@@ -15,7 +19,7 @@
           className="svg-container"
         ></svg-icon>
         <el-input
-          placeholder="请输入用户名"
+          :placeholder="$t('msg.login.usernamePlaceHolder')"
           type="text"
           v-model="loginForm.username"
         ></el-input>
@@ -26,7 +30,7 @@
           icon="password"
         ></svg-icon>
         <el-input
-          placeholder="请输入密码"
+          :placeholder="$t('msg.login.passwordPlaceHolder')"
           :type="passwordType"
           v-model="loginForm.password"
         ></el-input>
@@ -42,20 +46,40 @@
         type="primary"
         @click="handleLogin"
         :loading="loading"
-      >登 录</el-button>
+      >{{ $t('msg.login.loginBtn') }}</el-button>
+
+      <div
+        class="tips"
+        v-html="$t('msg.login.desc')"
+      ></div>
     </el-form>
   </div>
 </template>
 
 <script setup lang="ts">
 import SvgIcon from '@/components/SvgIcon/index.vue'
-import { ref } from 'vue'
+import LangSelect from '@/components/LangSelect/index.vue'
+import { ref, watch } from 'vue'
 import { LoginForm } from './types'
 import { validatePassword } from './rules'
 import type { ElForm } from 'element-plus'
 import { useStore } from 'vuex'
+import { useI18n } from 'vue-i18n'
 
 const store = useStore()
+const i18n = useI18n()
+
+const rules = {
+  username: {
+    required: true,
+    message: i18n.t('msg.login.usernameRule'),
+    trigger: 'blur'
+  },
+  password: {
+    validator: validatePassword(),
+    trigger: 'blur'
+  }
+}
 
 const form = ref<InstanceType<typeof ElForm>>()
 
@@ -64,17 +88,14 @@ const loginForm = ref<LoginForm>({
   password: '123456Abc'
 })
 
-const loginRule = ref({
-  username: {
-    required: true,
-    message: '请输入用户名',
-    trigger: 'blur'
-  },
-  password: {
-    validator: validatePassword(),
-    trigger: 'blur'
+const loginRule = ref(rules)
+
+watch(
+  () => store.getters.language,
+  () => {
+    loginRule.value = rules
   }
-})
+)
 
 const loading = ref<boolean>(false)
 
@@ -151,6 +172,16 @@ $cursor: #fff;
         text-align: center;
         font-weight: bold;
       }
+
+      ::v-deep .lang-select {
+        position: absolute;
+        right: 0;
+        top: 14px;
+        font-size: 22px;
+        color: #fff;
+        background: #fff;
+        cursor: pointer;
+      }
     }
 
     ::v-deep .svg-container {
@@ -171,6 +202,12 @@ $cursor: #fff;
       color: $dark_gray;
       cursor: pointer;
       user-select: none;
+    }
+
+    .tips {
+      color: #fff;
+      margin-top: 30px;
+      margin-bottom: 12px;
     }
   }
 }

@@ -1,8 +1,9 @@
 import { LoginForm } from '@/views/Login/types'
 import { login, getUserInfo } from '@/api/sys'
-import { getItem, setItem } from '@/utils/storage'
+import { getItem, setItem, removeAllItem } from '@/utils/storage'
 import { TOKEN, TOKEN_VALUE } from '@/constant/'
-import router from '@/router'
+import router, { resetRouter } from '@/router'
+import { setTimeStamp } from '@/utils/auth'
 // import md5 from 'md5'
 
 export default {
@@ -33,6 +34,8 @@ export default {
           // 因为是httpOnly模式，所以我们在这里模拟下token
           // this.commit('user/setToken', token)
           context.commit('setToken', TOKEN_VALUE)
+          // 缓存时间戳
+          setTimeStamp()
           router.push('/')
           resolve(res)
         }).catch((err: any) => {
@@ -44,6 +47,13 @@ export default {
       const data = await getUserInfo()
       context.commit('setUserInfo', data)
       return data
+    },
+    logout(context: any) {
+      context.commit('setToken', '')
+      context.commit('setUserInfo', {})
+      removeAllItem()
+      resetRouter()
+      router.push('/login')
     }
   }
 }

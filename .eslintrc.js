@@ -19,6 +19,7 @@ module.exports = {
     "space-before-function-paren": 0,
     "@typescript-eslint/no-explicit-any": ["off"],
     "space-before-blocks": 0,
-    "key-spacing": 0
+    "key-spacing": 0,
+    '@typescript-eslint/no-var-requires': 0
   }
 }

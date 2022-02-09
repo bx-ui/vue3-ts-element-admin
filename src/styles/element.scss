@@ -1,0 +1,17 @@
+.el-avatar {
+  --el-avatar-bg-color: none;
+}
+
+.my-component-dialog-container {
+  .el-dialog__body {
+    height: 500px;
+    overflow: scroll;
+  }
+  .el-dialog__header {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+}
+
+.my-component-popover {
+  padding: 0px !important;
+}
