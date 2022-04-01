@@ -39,7 +39,10 @@ export default {
     trend: 'Trend Component',
     notification: 'Notification Component',
     menu: 'Menu Component',
-    progress: 'Progress Component'
+    progress: 'Progress Component',
+    form: 'Form',
+    modalForm: 'Modal Form',
+    table: 'table'
   },
   toast: {
     switchLangSuccess: 'Switch Language Success',
@@ -192,5 +195,18 @@ export default {
   },
   chooseIcon: {
     buttonText: 'Choose Icon'
+  },
+  placeHolder: {
+    blurPlaceHoilder: 'Please enter',
+    changePlaceHolder: 'Please change'
+  },
+  form: {
+    username: 'username',
+    password: 'password',
+    position: 'position',
+    hobby: 'hobby',
+    member: 'staff member',
+    manager: 'manager',
+    allManager: 'general manager'
   }
 }

@@ -1,10 +1,10 @@
 <template>
   <div class="app-main">
-    <!-- <router-view v-slot="{ Component, route }">
-      <transition
-        name="fade-transform"
-        mode="out-in"
-      >
+    <router-view
+      v-slot="{ Component, route }"
+      v-if="match"
+    >
+      <transition name="fade-transform">
         <keep-alive>
           <component
             :is="Component"
@@ -12,25 +12,24 @@
           />
         </keep-alive>
       </transition>
-    </router-view> -->
+    </router-view>
     <transition
       name="fade-transform"
       mode="out-in"
+      v-else
     >
-      <keep-alive>
-        <router-view v-slot="{ Component, route }">
-          <component
-            :is="Component"
-            :key="route.path"
-          />
-        </router-view>
-      </keep-alive>
+      <router-view v-slot="{ Component, route }">
+        <component
+          :is="Component"
+          :key="route.path"
+        />
+      </router-view>
     </transition>
   </div>
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue'
+import { watch, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { isTags } from '@/utils/tags'
 import { TagViewItem } from '@/store/modules/app'
@@ -39,6 +38,8 @@ import { useStore } from 'vuex'
 
 const route = useRoute()
 const store = useStore()
+
+const match = ref<boolean>(false)
 
 const getTitle = (route: any) => {
   let title = ''
@@ -70,7 +71,7 @@ watch(
   route,
   (to, from) => {
     if (!isTags(to.path)) return
-    console.log(to)
+    runMatch()
 
     const { fullPath, meta, name, params, path, query } = to
 
@@ -91,6 +92,13 @@ watch(
     deep: true
   }
 )
+
+function runMatch() {
+  match.value = !!store.getters.tagsViewList.find(
+    (item: TagViewItem) => item.path === route.path
+  )
+  console.log(match.value)
+}
 </script>
 
 <style lang="scss" scoped>

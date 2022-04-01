@@ -38,7 +38,10 @@ export default {
     trend: '趋势组件',
     notification: '通知组件',
     menu: '菜单组件',
-    progress: '进度条组件'
+    progress: '进度条组件',
+    form: '表单',
+    modalForm: '弹出框表单',
+    table: '表格'
   },
   toast: {
     switchLangSuccess: '切换语言成功',
@@ -190,5 +193,23 @@ export default {
   },
   chooseIcon: {
     buttonText: '选择图标'
+  },
+  placeHolder: {
+    blurPlaceHoilder: '请输入',
+    changePlaceHolder: '请选择'
+  },
+  form: {
+    username: '用户名',
+    password: '密码',
+    position: '职位',
+    hobby: '爱好',
+    member: '职员',
+    manager: '经理',
+    allManager: '总经理'
+  },
+  menus: {
+    title: {
+      标题: '标题'
+    }
   }
 }

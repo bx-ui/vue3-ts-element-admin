@@ -123,6 +123,33 @@ export const publicRoutes: Array<RouteRecordRaw> = [
           icon: 'user'
         },
         component: () => import('@/views/progress/index.vue')
+      },
+      {
+        path: '/m-components/form',
+        name: 'form',
+        meta: {
+          title: 'form',
+          icon: 'user'
+        },
+        component: () => import('@/views/form/index.vue')
+      },
+      {
+        path: '/m-components/modalForm',
+        name: 'modalForm',
+        meta: {
+          title: 'modalForm',
+          icon: 'user'
+        },
+        component: () => import('@/views/modalForm/index.vue')
+      },
+      {
+        path: '/m-components/table',
+        name: 'table',
+        meta: {
+          title: 'table',
+          icon: 'user'
+        },
+        component: () => import('@/views/table/index.vue')
       }
     ]
   },
